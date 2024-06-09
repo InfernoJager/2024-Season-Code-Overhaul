@@ -10,16 +10,19 @@ public class LimelightSubsystem {
     public void LimelightWhere() {
 
         double[] params;
+        double aprilTag;
 
         params = NetworkTableInstance.getDefault().getTable("limelight").getEntry("targetpose_robotspace").getDoubleArray(new double[6]);
         /*39.37 inches in a meter, but limelight calibration required 32*/
-        double meterToInch = 32;
+        double meterToInch = 43.3;
         double x = Math.round(params[0]*meterToInch);
         double y = Math.round(params[1]*meterToInch);
-        double z = Math.round(params[2]*meterToInch);
+        double z = Math.round((params[2]*meterToInch));
         double roll = params[3];
         double pitch = params[4];
         double yaw = params[5];
+
+        aprilTag = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tid").getFloat(0);
 
         SmartDashboard.putNumber("LimelightX", x);
         SmartDashboard.putNumber("LimelightY", y);
@@ -27,6 +30,7 @@ public class LimelightSubsystem {
         SmartDashboard.putNumber("LimelightRoll", roll);
         SmartDashboard.putNumber("LimelightPitch", pitch);
         SmartDashboard.putNumber("LimelightYaw", yaw);
+        SmartDashboard.putNumber("AprilTag ID", aprilTag);
 
     }
 

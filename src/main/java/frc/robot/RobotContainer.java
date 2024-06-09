@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 public class RobotContainer {
   DriveSubsystem drive = new DriveSubsystem();
+  LimelightSubsystem limelight = new LimelightSubsystem();
   
   CommandXboxController commandDriverController = new CommandXboxController(Constants.DRIVE_CONTROL_PORT);
   XboxController driverController = new XboxController(Constants.DRIVE_CONTROL_PORT);
@@ -38,10 +39,14 @@ public class RobotContainer {
   
   private void configureBindings() {
 
+    SmartDashboard.putData(new InstantCommand(()->{DriveSubsystem.resetGyro(0);}));
+
     // Driver Triggers
 
     commandDriverController.axisGreaterThan(0, 0.1)
+      .or(commandDriverController.axisLessThan(0, -0.1))
       .or(commandDriverController.axisGreaterThan(1, 0.1))
+      .or(commandDriverController.axisLessThan(1, -0.1))
       .onTrue(new TeleopMoveCommand(drive, driverController));
 
     // Operator Triggers
@@ -55,8 +60,8 @@ public class RobotContainer {
 
   public void displayDashboard() {
     // SMART DASHBOARD
-    SmartDashboard.putData(new InstantCommand(()->{DriveSubsystem.resetGyro(0);}));
-
+    limelight.LimelightWhere();
+    
     // SHUFFLEBOARD
 
   }

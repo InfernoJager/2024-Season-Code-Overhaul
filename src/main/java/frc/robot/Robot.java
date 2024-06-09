@@ -33,7 +33,7 @@ public class Robot extends TimedRobot {
     camera.setResolution(320, 240);
     camera.setBrightness(40);
     camera.setFPS(20);
-    
+
   }
 
   /**

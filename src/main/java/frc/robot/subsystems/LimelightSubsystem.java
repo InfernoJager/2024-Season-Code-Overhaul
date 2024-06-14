@@ -30,4 +30,11 @@ public class LimelightSubsystem {
 
     }
 
+    public boolean can_get_position() {
+        return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0) > 0;
+    }
+
+    public double[] get_bot_pos() {
+        return NetworkTableInstance.getDefault().getTable("limelight").getEntry("botpose_orb").getDoubleArray(new double[6]);
+    }
 }

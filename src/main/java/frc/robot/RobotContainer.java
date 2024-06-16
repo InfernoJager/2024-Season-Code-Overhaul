@@ -92,7 +92,7 @@ public class RobotContainer {
 
   public void displayDashboard() {
     // SMART DASHBOARD
-    // limelight.LimelightWhere();
+    limelight.Debug();
     
     // SHUFFLEBOARD
     Shuffleboard.getTab("PivotInfo").addDouble("Pivot", () -> pivot.currentAngle())

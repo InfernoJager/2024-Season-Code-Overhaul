@@ -5,8 +5,7 @@
 package frc.robot;
 
 import frc.robot.motor.MotorInfo;
-import frc.robot.swervemodule.SwerveModuleInfo;
-
+import frc.robot.swerve_module.SwerveModuleInfo;
 import edu.wpi.first.math.geometry.Translation2d;
 
 /**

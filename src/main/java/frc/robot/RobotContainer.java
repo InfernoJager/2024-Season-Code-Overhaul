@@ -47,6 +47,10 @@ public class RobotContainer {
       .or(commandDriverController.axisLessThan(0, -0.1))
       .or(commandDriverController.axisGreaterThan(1, 0.1))
       .or(commandDriverController.axisLessThan(1, -0.1))
+      .or(commandDriverController.axisGreaterThan(4, 0.1))
+      .or(commandDriverController.axisGreaterThan(5, 0.1))
+      .or(commandDriverController.leftBumper())
+      .or(commandDriverController.rightBumper())
       .onTrue(new TeleopMoveCommand(drive, driverController));
 
     // Operator Triggers

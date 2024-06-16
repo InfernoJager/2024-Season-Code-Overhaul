@@ -64,7 +64,7 @@ public class RobotContainer {
 
   public void displayDashboard() {
     // SMART DASHBOARD
-    limelight.LimelightWhere();
+    limelight.Debug();
     
     // SHUFFLEBOARD
 

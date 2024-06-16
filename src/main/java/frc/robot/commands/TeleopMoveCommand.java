@@ -9,8 +9,8 @@ import frc.robot.subsystems.DriveSubsystem;
 
 public class TeleopMoveCommand extends Command {
     
-    final DriveSubsystem drive;
-    final XboxController controller;
+    protected DriveSubsystem drive;
+    protected XboxController controller;
 
     public TeleopMoveCommand(DriveSubsystem m_drive, XboxController m_controller) {
 

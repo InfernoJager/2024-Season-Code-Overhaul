@@ -5,8 +5,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class LimelightSubsystem {
 
-    /*39.37 inches in a meter, but limelight calibration required 43.3*/
-    double meterToInch = 43.3;
+    /*39.37 inches in a meter, but limelight calibration required 32*/
+    double meterToInch = 32;
     
     public LimelightSubsystem() {}
 
@@ -24,7 +24,7 @@ public class LimelightSubsystem {
 
     public double[] BotPoseOnField() {
 
-        return NetworkTableInstance.getDefault().getTable("limelight").getEntry("botpose_orb").getDoubleArray(new double[6]);
+        return NetworkTableInstance.getDefault().getTable("limelight").getEntry("botpose").getDoubleArray(new double[6]);
     
     } 
 
@@ -36,7 +36,7 @@ public class LimelightSubsystem {
 
     public void Debug() {
 
-        double[] poseSpace = TargetPose();
+        double[] poseSpace = BotPoseOnField();
 
         SmartDashboard.putNumber("LimelightX", poseSpace[0]*meterToInch);
         SmartDashboard.putNumber("LimelightY", poseSpace[1]*meterToInch);

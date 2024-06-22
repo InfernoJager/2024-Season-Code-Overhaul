@@ -10,6 +10,10 @@ import edu.wpi.first.wpilibj.TimedRobot;
 // import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.autonomous_commands.LimelightFollow;
+import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.LimelightSubsystem;
+import edu.wpi.first.wpilibj.XboxController;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -94,6 +98,12 @@ public class Robot extends TimedRobot {
     }
 
     // Shuffleboard.startRecording();
+    LimelightSubsystem limelight = m_robotContainer.limelight;
+    DriveSubsystem drive = m_robotContainer.drive;
+    XboxController controller = m_robotContainer.driverController;
+
+    LimelightFollow follow_command = new LimelightFollow(limelight, drive, controller);
+    follow_command.schedule();
   }
 
   /** This function is called periodically during operator control. */

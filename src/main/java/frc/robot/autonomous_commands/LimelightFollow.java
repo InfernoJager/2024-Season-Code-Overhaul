@@ -1,6 +1,7 @@
 package frc.robot.autonomous_commands;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.TeleopMoveCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
@@ -34,7 +35,15 @@ public class LimelightFollow extends TeleopMoveCommand{
         double angle = r_yaw + l_yaw + a1 - 180;
 
         // left-x, right+x, up-y, down+y
-        return VectorR.fromPolar(0.5, angle);
+        return VectorR.fromPolar(0.25, angle);
+
+    }
+
+    @Override
+    public void execute() {
+
+        VectorR vector = this.LeftJoystickPostion();
+        SmartDashboard.putNumber("LimelightAngle", vector.getAngle());
 
     }
 

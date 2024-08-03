@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
-import frc.robot.commands.DriveStopCommand;
-import frc.robot.commands.TeleopMoveCommand;
+import frc.robot.commands.DriveCommands.DriveStopCommand;
+import frc.robot.commands.DriveCommands.TeleopMoveCommand;
 
 import edu.wpi.first.wpilibj.XboxController;
 

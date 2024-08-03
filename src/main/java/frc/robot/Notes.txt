@@ -1,0 +1,49 @@
+Buttons  
+    Intake 1
+    Cancel 6
+    Amp Shoot 8
+    Speaker Shoot 4
+    Trap Shoot? 7
+    Climb Prep 3
+    Climb Execute 2
+    
+
+Button Box (top down)
+4 3 2 1
+8 7 6 5
+
+
+Pivot Subsystem controls
+    pivotToTarget
+    setTarget
+    setPivotSpeed
+    stop
+    Safety Checks
+        Doesn't pivot too far
+
+    
+Climb Subsystem controls
+    setArmLength
+    moveArm
+    stop
+    Safety Checks
+        Doesn't extend/retract too far
+
+
+Intake Subsystem controls
+    setIntakeSpeed
+    feed
+    purge
+    stop
+
+
+Belt Subsystem controls
+    setIntakeSpeed
+    push
+    retract
+    stop
+
+
+Shoot Subsystem controls
+    setFlywheelSpeed
+    stop

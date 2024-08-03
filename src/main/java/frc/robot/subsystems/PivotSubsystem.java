@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
 import frc.robot.motor.PairedMotors;
+import frc.robot.motor.Motor.encoderType;
 
 public class PivotSubsystem extends SubsystemBase {
 
@@ -20,7 +21,7 @@ public class PivotSubsystem extends SubsystemBase {
         pivotActive = false;
 
         // Provides the motor
-        motor = new PairedMotors(Constants.PIVOT_MAIN, Constants.PIVOT_SLAVE, false, true);
+        motor = new PairedMotors(Constants.PIVOT_MAIN, Constants.PIVOT_SLAVE, encoderType.Absolute);
         motor.mainMotor.absoluteEncoder.setInverted(true); // Inverted becauase encoder upside down
         motor.SetRampRate(0.1); // Sets ramp up rate per second to save energy
 
@@ -43,14 +44,7 @@ public class PivotSubsystem extends SubsystemBase {
 
     }
 
-    public void stop() {
-        
-        motor.Spin(0);
-        pivotActive = false;
-
-    }
-
-    public void pivotToTarget() {
+    public void pivotToTargetPID() {
 
         if (!pivotActive) return;
         
@@ -122,5 +116,12 @@ public class PivotSubsystem extends SubsystemBase {
     private void spin(double speed) {
         motor.Spin(speed);
     }
-    
+
+    public void stop() {
+        
+        motor.Spin(0);
+        pivotActive = false;
+
+    }
+
 }

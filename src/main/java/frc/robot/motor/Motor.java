@@ -14,64 +14,52 @@ public class Motor {
     public SparkAbsoluteEncoder absoluteEncoder;
     public RelativeEncoder inBuiltEncoder;
     public final MotorInfo info;
+    
+    public enum encoderType {
+        None, Analog, Absolute;
+    }
 
-    public Motor(MotorInfo info, boolean analog, boolean absolute) {
+    public Motor(MotorInfo info, encoderType encoder) {
 
         this.info = info;
         this.motor = new CANSparkMax(info.ID, MotorType.kBrushless);
         this.inBuiltEncoder = motor.getEncoder();
         motor.setIdleMode(IdleMode.kBrake);
 
-        if (analog) {
+        if (encoder == encoderType.Analog) {
             this.analogEncoder = motor.getAnalog(SparkAnalogSensor.Mode.kAbsolute);
-        } 
-        if (absolute) {
+        } else if (encoder == encoderType.Absolute) {
             this.absoluteEncoder = motor.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle);
         } 
 
     }
 
-    public double getRawAngle(boolean degreesOrVoltage) {
+    public double getAnalogRawAngle() {
         
-        double rawAngle;
+        double degreesPerVolt = 360/info.MAX_ENCODER_VALUE;
+        double encoderVoltage = analogEncoder.getVoltage();
 
-        if (degreesOrVoltage) {
-            double degreePosition = analogEncoder.getPosition();
-            
-            rawAngle = degreePosition;
-        } else {
-            double degreesPerVolt = 360/info.MAX_ENCODER_VALUE;
-            double encoderVoltage = analogEncoder.getVoltage();
-            double voltsPosition = degreesPerVolt * encoderVoltage;
-
-            rawAngle = voltsPosition;
-        }
+        double rawAngle = degreesPerVolt * encoderVoltage;
 
         return rawAngle;
 
     }
 
-    public double getAngle() {
+    public double getAnalogAngle() {
         
-        double angle = getRawAngle(true) - info.REFERENCE_ANGLE;
-        
-        return angle;
+        return getAnalogRawAngle() - info.REFERENCE_ANGLE;
 
     }
 
     public double getAbsoluteRawAngle() {
 
-        double angle = absoluteEncoder.getPosition();
-
-        return angle;
+        return absoluteEncoder.getPosition();
 
     }
 
     public double getAbsoluteAngle() {
 
-        double angle = absoluteEncoder.getPosition() - info.REFERENCE_ANGLE;
-
-        return angle;
+        return getAbsoluteRawAngle() - info.REFERENCE_ANGLE;
 
     }
 

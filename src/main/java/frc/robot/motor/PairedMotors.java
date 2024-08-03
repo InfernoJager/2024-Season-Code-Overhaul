@@ -1,17 +1,16 @@
 package frc.robot.motor;
 
+import frc.robot.motor.Motor.encoderType;
+
 public class PairedMotors {
     
     public final Motor mainMotor;
     public final Motor slaveMotor;
 
-    public PairedMotors(MotorInfo main, MotorInfo slave, boolean analog, boolean absolute) {
+    public PairedMotors(MotorInfo main, MotorInfo slave, encoderType encoder) {
         
-        
-        this.mainMotor = new Motor(main, analog, absolute);
-        this.slaveMotor = new Motor(slave, false, false);
-
-        
+        this.mainMotor = new Motor(main, encoder);
+        this.slaveMotor = new Motor(slave, encoderType.None);
 
     }
 
@@ -26,12 +25,6 @@ public class PairedMotors {
 
         mainMotor.motor.setClosedLoopRampRate(rate);
         slaveMotor.motor.setClosedLoopRampRate(rate);
-
-    }
-
-    public void debugSmartDashboard() {
-        
-        // SmartDashboard.putNumber("PivotConversin", mainMotor.absoluteEncoder.getPositionConversionFactor());
 
     }
 

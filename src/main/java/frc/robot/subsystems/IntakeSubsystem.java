@@ -18,7 +18,7 @@ public class IntakeSubsystem extends SubsystemBase  {
     
     }
 
-    public void setIntakeSpeed(double speed){
+    private void setIntakeSpeed(double speed){
 
         motor.Spin(speed);   
         

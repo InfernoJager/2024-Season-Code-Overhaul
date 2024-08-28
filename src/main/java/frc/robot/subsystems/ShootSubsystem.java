@@ -29,7 +29,7 @@ public class ShootSubsystem extends SubsystemBase {
 
     }
 
-    public void setFlywheelSpeed(double speed) {
+    private void setFlywheelSpeed(double speed) {
 
         motor.Spin(speed);
         

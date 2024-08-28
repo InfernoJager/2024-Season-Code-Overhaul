@@ -21,7 +21,7 @@ public class BeltSubsystem extends SubsystemBase {
 
     }
 
-    public void setBeltSpeed(double speed){
+    private void setBeltSpeed(double speed){
 
         motor.Spin(speed);   
         

@@ -40,7 +40,48 @@ public class PivotSubsystem extends SubsystemBase {
 
     public void setPivotSpeed(double speed) {
         
-        pivotSpeed = speed;
+        pivotSpeed = Math.abs(speed);
+
+    }
+
+    private void pivotUp() {
+
+        spin(-pivotSpeed);
+
+    }
+
+    private void pivotDown() {
+
+        spin(pivotSpeed);
+
+    }
+
+    public void pivotToTarget() {
+
+        if (!pivotActive) return;
+        
+        double angle = currentAngle();
+        double minAngle = 20;
+        double maxAngle = 120;
+
+        if (angle < minAngle) {
+            motor.Spin(-0.05);
+
+            return;
+        }
+        if (angle > maxAngle) {
+            motor.Spin(0.05);
+
+            return;
+        }
+
+        if (isInDeadzone(angle, 0.5)) {
+            stop();
+        } else if (angle < desiredAngle) {
+            pivotUp();
+        } else {
+            pivotDown();
+        }
 
     }
 
@@ -121,6 +162,12 @@ public class PivotSubsystem extends SubsystemBase {
         
         motor.Spin(0);
         pivotActive = false;
+
+    }
+
+    public void hold() {
+        
+        motor.Spin(-0.03);
 
     }
 

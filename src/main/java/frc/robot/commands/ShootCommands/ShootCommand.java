@@ -26,9 +26,9 @@ public class ShootCommand extends Command {
     }
 
     @Override
-    public void end(boolean interrupted) {
+    public boolean isFinished() {
 
-        shoot.stop();
+        return shoot.isUpToSpeed();
 
     }
 

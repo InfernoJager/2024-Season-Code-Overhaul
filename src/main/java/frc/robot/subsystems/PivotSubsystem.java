@@ -136,26 +136,44 @@ public class PivotSubsystem extends SubsystemBase {
     }
 
     private boolean isInDeadzone(double angle, double deadzone) {
+
         return desiredAngle > angle - deadzone && desiredAngle < angle + deadzone;
+
+    }
+
+    public boolean isReady(double deadzone) {
+
+        return isInDeadzone(currentAngle(), deadzone);
+
     }
 
     private double getPIDValue(double angle) {
+
         double pidBaseValue = pivotpid.calculate(angle, desiredAngle);
         double pidSetValue;
         if (pidBaseValue > 0) {
-            pidSetValue = Math.min(pidBaseValue, -pivotSpeed);  
+            pidSetValue = Math.min(pidBaseValue, pivotSpeed);  
         } else {
-            pidSetValue = Math.max(pidBaseValue, pivotSpeed);
+            pidSetValue = Math.max(pidBaseValue, -pivotSpeed);
         }
         if (desiredAngle >= angle) {
             return -Math.abs(pidSetValue);
         } else {
             return Math.abs(pidSetValue);
         }
+
     }
     
     private void spin(double speed) {
+
         motor.Spin(speed);
+
+    }
+
+    public void startPivot() {
+
+        pivotActive = true;
+
     }
 
     public void stop() {
@@ -167,7 +185,7 @@ public class PivotSubsystem extends SubsystemBase {
 
     public void hold() {
         
-        motor.Spin(-0.03);
+        motor.Spin(-0.02);
 
     }
 

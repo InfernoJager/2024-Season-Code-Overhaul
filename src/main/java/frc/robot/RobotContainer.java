@@ -4,25 +4,37 @@
 
 package frc.robot;
 
+// Base Command Imports
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+
+// Controller Imports
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
+// Command Imports
+import frc.robot.commands.ButtonCommands.SpeakerShootCommand;
 import frc.robot.commands.DriveCommands.DriveStopCommand;
 import frc.robot.commands.DriveCommands.TeleopMoveCommand;
 
-import edu.wpi.first.wpilibj.XboxController;
-
+// Subsystem Imports
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
+import frc.robot.subsystems.PivotSubsystem;
+import frc.robot.subsystems.BeltSubsystem;
+import frc.robot.subsystems.ShootSubsystem;
 
+// Dashboard Imports
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 public class RobotContainer {
   DriveSubsystem drive = new DriveSubsystem();
   LimelightSubsystem limelight = new LimelightSubsystem();
+  PivotSubsystem pivot = new PivotSubsystem();
+  BeltSubsystem belt = new BeltSubsystem();
+  ShootSubsystem shoot = new ShootSubsystem();
   
   CommandXboxController commandDriverController = new CommandXboxController(Constants.DRIVE_CONTROL_PORT);
   XboxController driverController = new XboxController(Constants.DRIVE_CONTROL_PORT);
@@ -54,6 +66,7 @@ public class RobotContainer {
       .onTrue(new TeleopMoveCommand(drive, driverController));
 
     // Operator Triggers
+    buttonBoard.button(4).onTrue(new SpeakerShootCommand(pivot, belt, shoot));
 
     displayDashboard();
   }

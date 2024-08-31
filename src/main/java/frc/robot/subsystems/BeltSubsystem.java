@@ -50,6 +50,12 @@ public class BeltSubsystem extends SubsystemBase {
         return sensor.getVoltage() > 0.1;
 
     }
+
+    public double getSensorVal() {
+
+        return sensor.getVoltage();
+
+    }
     
     public void stop(){
        

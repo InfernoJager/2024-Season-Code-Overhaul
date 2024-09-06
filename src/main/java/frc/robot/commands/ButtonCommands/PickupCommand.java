@@ -13,9 +13,9 @@ import frc.robot.commands.CompositeCommands.NotePrepCommand;
 import frc.robot.commands.PivotCommands.PivotToTargetPIDCommand;
 
 
-public class IntakeNoteCommand extends SequentialCommandGroup {
+public class PickupCommand extends SequentialCommandGroup {
 
-    public IntakeNoteCommand(PivotSubsystem pivot, BeltSubsystem belt, IntakeSubsystem intake) {
+    public PickupCommand(PivotSubsystem pivot, BeltSubsystem belt, IntakeSubsystem intake) {
 
         double target = 21;
         double safeAngle = 33;

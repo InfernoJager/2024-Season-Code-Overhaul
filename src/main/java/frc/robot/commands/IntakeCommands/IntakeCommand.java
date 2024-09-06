@@ -7,10 +7,12 @@ import frc.robot.subsystems.IntakeSubsystem;
 public class IntakeCommand extends Command {
     
     final IntakeSubsystem intake;
+    private final double intakeSpeed;
 
-    public IntakeCommand(IntakeSubsystem m_intake) {
+    public IntakeCommand(IntakeSubsystem m_intake, double speed) {
 
         intake = m_intake;
+        intakeSpeed = speed;
 
         addRequirements(intake);
 
@@ -18,12 +20,16 @@ public class IntakeCommand extends Command {
 
     @Override
     public void initialize() {
-        intake.feed(0.6);
+
+        intake.feed(intakeSpeed);
+
     }
 
     @Override
     public void end(boolean interrupted) {
+
         intake.stop();
+        
     }
 
 }

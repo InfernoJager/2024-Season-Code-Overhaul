@@ -21,12 +21,16 @@ public class BeltPushCommand extends Command {
 
     @Override
     public void initialize() {
+
         belt.push(beltSpeed);
+
     }
 
     @Override
     public void end(boolean interrupted) {
+
         belt.stop();
+        
     }
 
 }

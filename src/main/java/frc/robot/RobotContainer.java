@@ -6,6 +6,7 @@ package frc.robot;
 
 // Base Command Imports
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 // Controller Imports
@@ -15,14 +16,18 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 // Command Imports
 import frc.robot.commands.ButtonCommands.SpeakerShootCommand;
+import frc.robot.commands.ButtonCommands.CancelCommand;
+import frc.robot.commands.ButtonCommands.PickupCommand;
 import frc.robot.commands.DriveCommands.DriveStopCommand;
 import frc.robot.commands.DriveCommands.TeleopMoveCommand;
 
 // Subsystem Imports
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
 import frc.robot.subsystems.BeltSubsystem;
+import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ShootSubsystem;
 
 // Dashboard Imports
@@ -32,7 +37,9 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 public class RobotContainer {
   DriveSubsystem drive = new DriveSubsystem();
   LimelightSubsystem limelight = new LimelightSubsystem();
+  IntakeSubsystem intake = new IntakeSubsystem();
   PivotSubsystem pivot = new PivotSubsystem();
+  ClimbSubsystem climb = new ClimbSubsystem();
   BeltSubsystem belt = new BeltSubsystem();
   ShootSubsystem shoot = new ShootSubsystem();
   
@@ -66,7 +73,9 @@ public class RobotContainer {
       .onTrue(new TeleopMoveCommand(drive, driverController));
 
     // Operator Triggers
+    buttonBoard.button(1).onTrue(new PickupCommand(pivot, belt, intake));
     buttonBoard.button(4).onTrue(new SpeakerShootCommand(pivot, belt, shoot));
+    buttonBoard.button(6).onTrue(new CancelCommand(intake, pivot, climb, shoot, belt));
 
     displayDashboard();
   }

@@ -26,13 +26,13 @@ public class IntakeSubsystem extends SubsystemBase  {
 
     public void feed(double speed){
         
-        this.setIntakeSpeed(-Math.abs(speed));
+        this.setIntakeSpeed(Math.abs(speed));
 
     }
 
     public void purge(double speed){
        
-        this.setIntakeSpeed(Math.abs(speed));
+        this.setIntakeSpeed(-Math.abs(speed));
         
     }
 

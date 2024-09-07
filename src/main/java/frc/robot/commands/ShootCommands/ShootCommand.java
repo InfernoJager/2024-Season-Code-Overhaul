@@ -8,11 +8,13 @@ public class ShootCommand extends Command {
     
     final ShootSubsystem shoot;
     private final double shootSpeed;
+    private final double targetVelocity;
     
-    public ShootCommand(ShootSubsystem m_shoot, double speed) {
+    public ShootCommand(ShootSubsystem m_shoot, double speed, double motorVelocity) {
 
         shoot = m_shoot;
         shootSpeed = speed;
+        targetVelocity = motorVelocity;
 
         addRequirements(shoot);
 
@@ -28,7 +30,7 @@ public class ShootCommand extends Command {
     @Override
     public boolean isFinished() {
 
-        return shoot.isUpToSpeed();
+        return shoot.isUpToSpeed(targetVelocity);
 
     }
 

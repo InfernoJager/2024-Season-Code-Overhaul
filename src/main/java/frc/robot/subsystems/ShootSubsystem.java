@@ -35,9 +35,9 @@ public class ShootSubsystem extends SubsystemBase {
         
     }
 
-    public Boolean isUpToSpeed() {
+    public Boolean isUpToSpeed(double motorVelocity) {
 
-        return motor.mainMotor.inBuiltEncoder.getVelocity() <= -5500;
+        return Math.abs(motor.mainMotor.inBuiltEncoder.getVelocity()) >= Math.abs(motorVelocity);
 
     }
     

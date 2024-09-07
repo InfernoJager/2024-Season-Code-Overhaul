@@ -22,11 +22,12 @@ public class SpeakerShootCommand extends SequentialCommandGroup {
         double safeAngle = 33;
         double pivotSpeed = 0.3;
         double shootSpeed = 1;
+        double motorVelocity = 5500;
         double beltSpeed = 1;
         double shootTime = 0.5;
         
         addCommands(
-            new PivotToTargetPIDCommand(pivot, target, pivotSpeed).alongWith(new ShootCommand(shoot, shootSpeed)),
+            new PivotToTargetPIDCommand(pivot, target, pivotSpeed).alongWith(new ShootCommand(shoot, shootSpeed, motorVelocity)),
             new BeltPushCommand(belt, beltSpeed).raceWith(new WaitCommand(shootTime)),
             new BeltStopCommand(belt).alongWith(new ShootStopCommand(shoot)).alongWith(new PivotToTargetPIDCommand(pivot, safeAngle, pivotSpeed))
         );

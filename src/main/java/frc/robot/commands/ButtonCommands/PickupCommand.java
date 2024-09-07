@@ -25,8 +25,8 @@ public class PickupCommand extends SequentialCommandGroup {
 
         addCommands(
             new PivotToTargetPIDCommand(pivot, target, pivotSpeed),
-            new IntakeCommand(intake, intakeSpeed).alongWith(new BeltPushCommand(belt, beltSpeed)).raceWith(new NoteDetectionCommand(belt))
-            //note prep, pivot safe
+            new IntakeCommand(intake, intakeSpeed).alongWith(new BeltPushCommand(belt, beltSpeed)).raceWith(new NoteDetectionCommand(belt)),
+            new NotePrepCommand(belt).alongWith(new PivotToTargetPIDCommand(pivot, safeAngle, pivotSpeed))
         );
 
         addRequirements(pivot, belt, intake);

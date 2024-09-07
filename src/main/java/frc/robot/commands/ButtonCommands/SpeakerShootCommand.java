@@ -2,7 +2,6 @@ package frc.robot.commands.ButtonCommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 
 import frc.robot.subsystems.PivotSubsystem;
 import frc.robot.subsystems.BeltSubsystem;

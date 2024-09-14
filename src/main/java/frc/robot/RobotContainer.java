@@ -58,7 +58,7 @@ public class RobotContainer {
   
   private void configureBindings() {
 
-    SmartDashboard.putData(new InstantCommand(()->{DriveSubsystem.resetGyro(0);}));
+    SmartDashboard.putData("Reset Gyro", new InstantCommand(()->{DriveSubsystem.resetGyro(0);}));
 
     // Driver Triggers
 
@@ -73,7 +73,7 @@ public class RobotContainer {
       .onTrue(new TeleopMoveCommand(drive, driverController));
 
     // Operator Triggers
-    buttonBoard.button(1).onTrue(new PickupCommand(pivot, belt, intake));
+    buttonBoard.button(1).onTrue(new PickupCommand(pivot, belt, intake, shoot));
     buttonBoard.button(4).onTrue(new SpeakerShootCommand(pivot, belt, shoot));
     buttonBoard.button(6).onTrue(new CancelCommand(intake, pivot, climb, shoot, belt));
 
@@ -86,9 +86,14 @@ public class RobotContainer {
 
   public void displayDashboard() {
     // SMART DASHBOARD
-    limelight.LimelightWhere();
+    // limelight.LimelightWhere();
     
     // SHUFFLEBOARD
+    Shuffleboard.getTab("PivotInfo").addDouble("Pivot", () -> pivot.currentAngle())
+      .withWidget("Graph")
+      .withPosition(0, 0);
+    Shuffleboard.getTab("PivotInfo").addDouble("Target", () -> pivot.getTargetAngle())
+      .withPosition(0, 3);
 
   }
 }

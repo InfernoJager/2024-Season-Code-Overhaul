@@ -29,7 +29,7 @@ public class CancelCommand extends SequentialCommandGroup {
                 new ShootStopCommand(shoot),
                 new BeltStopCommand(belt),
                 new ClimbStopCommand(climb)),
-            new PivotToTargetPIDCommand(pivot, safeAngle, pivotSpeed)
+            new PivotToTargetPIDCommand(pivot, safeAngle, pivotSpeed, 1)
         );
 
         addRequirements(intake, pivot, climb, shoot, belt);

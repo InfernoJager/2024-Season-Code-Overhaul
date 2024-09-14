@@ -3,6 +3,7 @@ package frc.robot.commands.ButtonCommands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 import frc.robot.subsystems.PivotSubsystem;
+import frc.robot.subsystems.ShootSubsystem;
 import frc.robot.subsystems.BeltSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
@@ -15,7 +16,7 @@ import frc.robot.commands.PivotCommands.PivotToTargetPIDCommand;
 
 public class PickupCommand extends SequentialCommandGroup {
 
-    public PickupCommand(PivotSubsystem pivot, BeltSubsystem belt, IntakeSubsystem intake) {
+    public PickupCommand(PivotSubsystem pivot, BeltSubsystem belt, IntakeSubsystem intake, ShootSubsystem shoot) {
 
         double target = 21;
         double safeAngle = 33;
@@ -24,9 +25,9 @@ public class PickupCommand extends SequentialCommandGroup {
         double beltSpeed = intakeSpeed*0.6;
 
         addCommands(
-            new PivotToTargetPIDCommand(pivot, target, pivotSpeed),
+            new PivotToTargetPIDCommand(pivot, target, pivotSpeed, 1),
             new IntakeCommand(intake, intakeSpeed).alongWith(new BeltPushCommand(belt, beltSpeed)).raceWith(new NoteDetectionCommand(belt)),
-            new NotePrepCommand(belt).alongWith(new PivotToTargetPIDCommand(pivot, safeAngle, pivotSpeed))
+            new NotePrepCommand(belt, shoot).alongWith(new PivotToTargetPIDCommand(pivot, safeAngle, pivotSpeed, 1))
         );
 
         addRequirements(pivot, belt, intake);

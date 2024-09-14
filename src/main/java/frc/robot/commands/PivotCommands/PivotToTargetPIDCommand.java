@@ -9,12 +9,14 @@ public class PivotToTargetPIDCommand extends Command {
     final PivotSubsystem pivot;
     final double target;
     final double speed;
+    final double deadzone;
 
-    public PivotToTargetPIDCommand(PivotSubsystem m_pivot, double m_target, double m_speed) {
+    public PivotToTargetPIDCommand(PivotSubsystem m_pivot, double m_target, double m_speed, double m_deadzone) {
 
         pivot = m_pivot;
         speed = m_speed;
         target = m_target;
+        deadzone = m_deadzone;
 
         addRequirements(pivot);
 
@@ -26,6 +28,7 @@ public class PivotToTargetPIDCommand extends Command {
         pivot.setTargetAngle(target);
         pivot.setPivotSpeed(speed);
         pivot.startPivot();
+        pivot.setPID();
 
     }
 
@@ -39,7 +42,7 @@ public class PivotToTargetPIDCommand extends Command {
     @Override
     public boolean isFinished() {
 
-        return pivot.isReady(0.5);
+        return pivot.isReady(deadzone);
 
     }
     

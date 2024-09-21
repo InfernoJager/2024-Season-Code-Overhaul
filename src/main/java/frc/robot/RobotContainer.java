@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 // Command Imports
 import frc.robot.commands.ButtonCommands.SpeakerShootCommand;
+import frc.robot.commands.ButtonCommands.AmpShootCommand;
 import frc.robot.commands.ButtonCommands.CancelCommand;
 import frc.robot.commands.ButtonCommands.PickupCommand;
 import frc.robot.commands.DriveCommands.DriveStopCommand;
@@ -76,6 +77,7 @@ public class RobotContainer {
     buttonBoard.button(1).onTrue(new PickupCommand(pivot, belt, intake, shoot));
     buttonBoard.button(4).onTrue(new SpeakerShootCommand(pivot, belt, shoot));
     buttonBoard.button(6).onTrue(new CancelCommand(intake, pivot, climb, shoot, belt));
+    buttonBoard.button(8).onTrue(new AmpShootCommand(pivot, belt, shoot));
 
     displayDashboard();
   }

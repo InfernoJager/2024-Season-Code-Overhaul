@@ -21,16 +21,17 @@ public class SpeakerShootCommand extends SequentialCommandGroup {
         // 50 target 7.3 feet, 64 target 3 feet (at subwoofer)
         double target = 64;
         double safeAngle = 33;
-        double pivotSpeed = 0.3;
+        double pivotSpeed = 1;
+        double safePivot = 0.3;
         double shootSpeed = 1;
         double motorVelocity = 5750;
         double beltSpeed = 1;
         double shootTime = 0.5;
         
         addCommands(
-            new PivotToTargetPIDCommand(pivot, target, pivotSpeed, 0.25).alongWith(new ShootCommand(shoot, shootSpeed, motorVelocity)),
+            new PivotToTargetPIDCommand(pivot, target, pivotSpeed, 0.25).alongWith(new ShootCommand(shoot, shootSpeed, motorVelocity)).raceWith(new WaitCommand(0.75)),
             new BeltPushCommand(belt, beltSpeed).raceWith(new WaitCommand(shootTime)),
-            new BeltStopCommand(belt).alongWith(new ShootStopCommand(shoot)).alongWith(new PivotToTargetPIDCommand(pivot, safeAngle, pivotSpeed, 1))
+            new BeltStopCommand(belt).alongWith(new ShootStopCommand(shoot)).alongWith(new PivotToTargetPIDCommand(pivot, safeAngle, safePivot, 1))
         );
 
         addRequirements(pivot, belt, shoot);

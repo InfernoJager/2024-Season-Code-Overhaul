@@ -15,7 +15,6 @@ Button Box (top down)
 
 Pivot Subsystem controls (+Decreases Angle, -Increases Angle)
     --pivotToTargetPID
-    pivotToTarget
     --setTargetAngle
     --setPivotSpeed
     --stop

@@ -31,7 +31,7 @@ public class BeltRotationMonitorCommand extends Command {
 
         currentRotations = belt.beltEncoderVal();
 
-        return (currentRotations >= initialRotations + targetRotation);
+        return (targetRotation <= Math.abs(initialRotations - currentRotations));
 
     }
 

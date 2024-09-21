@@ -18,8 +18,8 @@ public class SpeakerShootCommand extends SequentialCommandGroup {
 
     public SpeakerShootCommand(PivotSubsystem pivot, BeltSubsystem belt, ShootSubsystem shoot) {
         
-        // 50 target 7.3 feet
-        double target = 50;
+        // 50 target 7.3 feet, 64 target 3 feet (at subwoofer)
+        double target = 64;
         double safeAngle = 33;
         double pivotSpeed = 0.3;
         double shootSpeed = 1;

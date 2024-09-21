@@ -65,7 +65,7 @@ public class BeltSubsystem extends SubsystemBase {
 
     public double beltEncoderVal () {
 
-        return Math.abs(this.motor.motor.inBuiltEncoder.getPosition());
+        return this.motor.motor.inBuiltEncoder.getPosition();
 
     }
 

@@ -14,13 +14,13 @@ import frc.robot.commands.ShootCommands.ShootRetractionCommand;
 
 public class NotePrepCommand extends ParallelCommandGroup {
 
-    double beltSpeed = 0.4;
+    double beltSpeed = 0.2;
     double retractSpeed = 0.1;
 
     public NotePrepCommand(BeltSubsystem belt, ShootSubsystem shoot) {
 
         addCommands(
-            new BeltRetractCommand(belt, beltSpeed).alongWith(new ShootRetractionCommand(shoot, retractSpeed)).raceWith(new BeltRotationMonitorCommand(belt, 100))
+            new BeltRetractCommand(belt, beltSpeed).alongWith(new ShootRetractionCommand(shoot, retractSpeed)).raceWith(new BeltRotationMonitorCommand(belt, 3))
         );
 
     }

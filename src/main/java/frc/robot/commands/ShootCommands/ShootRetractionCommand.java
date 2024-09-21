@@ -21,7 +21,7 @@ public class ShootRetractionCommand extends Command {
     @Override
     public void initialize() {
 
-        shoot.shoot(shootSpeed);
+        shoot.retract(shootSpeed);
 
     }
 

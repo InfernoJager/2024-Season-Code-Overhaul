@@ -22,7 +22,7 @@ public class PickupCommand extends SequentialCommandGroup {
         double safeAngle = 33;
         double pivotSpeed = 0.3;
         double intakeSpeed = 0.6;
-        double beltSpeed = intakeSpeed*0.6;
+        double beltSpeed = intakeSpeed/1.592;
 
         addCommands(
             new PivotToTargetPIDCommand(pivot, target, pivotSpeed, 1),

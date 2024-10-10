@@ -34,6 +34,7 @@ import frc.robot.subsystems.ShootSubsystem;
 // Dashboard Imports
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import frc.robot.auto.AutoPicker;
 
 public class RobotContainer {
   DriveSubsystem drive = new DriveSubsystem();
@@ -43,6 +44,7 @@ public class RobotContainer {
   ClimbSubsystem climb = new ClimbSubsystem();
   BeltSubsystem belt = new BeltSubsystem();
   ShootSubsystem shoot = new ShootSubsystem();
+  AutoPicker auto = new AutoPicker(drive, shoot, pivot, belt, intake);
   
   CommandXboxController commandDriverController = new CommandXboxController(Constants.DRIVE_CONTROL_PORT);
   XboxController driverController = new XboxController(Constants.DRIVE_CONTROL_PORT);
@@ -83,7 +85,7 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return null;
+    return auto.GetAuto();
   }
 
   public void displayDashboard() {

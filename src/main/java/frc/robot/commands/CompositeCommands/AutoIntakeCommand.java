@@ -13,9 +13,9 @@ import frc.robot.commands.BeltCommands.NoteDetectionCommand;
 import frc.robot.commands.CompositeCommands.NotePrepCommand;
 import frc.robot.commands.PivotCommands.PivotToTargetPIDCommand;
 
-public class AutoIntake extends SequentialCommandGroup {
+public class AutoIntakeCommand extends SequentialCommandGroup {
     
-    public AutoIntake(PivotSubsystem pivot, BeltSubsystem belt, IntakeSubsystem intake, ShootSubsystem shoot) {
+    public AutoIntakeCommand(PivotSubsystem pivot, BeltSubsystem belt, IntakeSubsystem intake, ShootSubsystem shoot) {
 
         double target = 21;
         double safeAngle = 33;
@@ -24,9 +24,9 @@ public class AutoIntake extends SequentialCommandGroup {
         double beltSpeed = intakeSpeed/1.592;
 
         addCommands(
-            new PivotToTargetPIDCommand(pivot, target, pivotSpeed, 1),
-            new IntakeCommand(intake, intakeSpeed).alongWith(new BeltPushCommand(belt, beltSpeed)).raceWith(new NoteDetectionCommand(belt), new WaitCommand(3)),
-            new NotePrepCommand(belt, shoot).alongWith(new PivotToTargetPIDCommand(pivot, safeAngle, pivotSpeed, 1))
+            new PivotToTargetPIDCommand(pivot, target, pivotSpeed, 1).raceWith(new WaitCommand(0.4)),
+            new IntakeCommand(intake, intakeSpeed).alongWith(new BeltPushCommand(belt, beltSpeed)).raceWith(new NoteDetectionCommand(belt), new WaitCommand(2)),
+            new NotePrepCommand(belt, shoot).alongWith(new PivotToTargetPIDCommand(pivot, safeAngle, pivotSpeed, 1)).raceWith(new WaitCommand(0.1))
         );
 
         addRequirements(pivot, belt, intake);

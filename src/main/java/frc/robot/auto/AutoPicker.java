@@ -54,7 +54,7 @@ public class AutoPicker extends Command{
         m_chooser.addOption("Side Autos:", null);
         m_chooser.addOption("Alternate Autos:", null);
         m_chooser.addOption("  - Test Auto (PROGRAMMING ONLY)", m_TestAuto);
-        m_chooser.addOption("WIP Autos (DO NOT USE)", m_AmpSideAuto);
+        m_chooser.addOption("WIP Autos (DO NOT USE)", null);
         m_chooser.addOption("  - Leave", m_LeaveAuto);
         m_chooser.addOption("  - 2 Notes To Center", m_TwoNoteAuto);
         m_chooser.addOption("  - 3 Notes To Amp", m_ThreeAmpNoteAuto);

@@ -23,7 +23,12 @@ public class AutoMoveCommand extends Command {
     public AutoMoveCommand(DriveSubsystem m_drive, double m_distance, double m_angle, double m_magnitude, double m_turnSpeed, double m_desiredAngle) {
 
         drive = m_drive;
-
+        moveSpeed = new VectorR();
+        desiredPosition = m_distance;
+        angle = m_angle;
+        magnitude = m_magnitude;
+        turnSpeed = m_turnSpeed;
+        desiredAngle = m_desiredAngle;
 
         addRequirements(drive);
 

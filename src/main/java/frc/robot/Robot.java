@@ -58,7 +58,7 @@ public class Robot extends TimedRobot {
   public void disabledInit() {
     
     CommandScheduler.getInstance().cancelAll();
-    Shuffleboard.stopRecording();
+    // Shuffleboard.stopRecording();
 
   }
 
@@ -75,7 +75,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.schedule();
     }
 
-    Shuffleboard.startRecording();
+    // Shuffleboard.startRecording();
     
   }
 
@@ -93,7 +93,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
-    Shuffleboard.startRecording();
+    // Shuffleboard.startRecording();
   }
 
   /** This function is called periodically during operator control. */

@@ -109,6 +109,18 @@ public class ClimbSubsystem extends SubsystemBase {
 
     }
 
+    public boolean isServoIn() {
+
+        return (servoLeft.get() == 1 && servoRight.get() == 1);
+
+    }
+
+    public boolean isServoOut() {
+
+        return (servoLeft.get() == 0.25 && servoRight.get() == 0.25);
+
+    }
+
     public void stop() {
 
         this.setClimbSpeed(0);

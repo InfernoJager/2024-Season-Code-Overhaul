@@ -18,6 +18,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.ButtonCommands.SpeakerShootCommand;
 import frc.robot.commands.ButtonCommands.AmpShootCommand;
 import frc.robot.commands.ButtonCommands.CancelCommand;
+import frc.robot.commands.ButtonCommands.ClimbExecuteCommand;
+import frc.robot.commands.ButtonCommands.ClimbPrepCommand;
 import frc.robot.commands.ButtonCommands.PickupCommand;
 import frc.robot.commands.DriveCommands.DriveStopCommand;
 import frc.robot.commands.DriveCommands.TeleopMoveCommand;
@@ -75,6 +77,8 @@ public class RobotContainer {
 
     // Operator Triggers
     buttonBoard.button(1).onTrue(new PickupCommand(pivot, belt, intake, shoot, driverController));
+    buttonBoard.button(2).onTrue(new ClimbExecuteCommand(climb));
+    buttonBoard.button(3).onTrue(new ClimbPrepCommand(climb, pivot));
     buttonBoard.button(4).onTrue(new SpeakerShootCommand(pivot, belt, shoot));
     buttonBoard.button(6).onTrue(new CancelCommand(intake, pivot, climb, shoot, belt));
     buttonBoard.button(8).onTrue(new AmpShootCommand(pivot, belt, shoot));

@@ -4,24 +4,24 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.subsystems.ClimbSubsystem;
 
-public class ClimbLockCommand extends Command {
+public class ClimbUnlockCommand extends Command {
     
     final ClimbSubsystem climb;
 
-    public ClimbLockCommand(ClimbSubsystem m_climb) {
+    public ClimbUnlockCommand(ClimbSubsystem m_climb) {
 
         climb = m_climb;
-
+        
     }
 
     @Override
     public void execute() {
-        climb.servoIn();
+        climb.servoOut();
     }
 
     @Override
     public boolean isFinished() {
-        return climb.isServoIn();
+        return climb.isServoOut();
     }
 
 }

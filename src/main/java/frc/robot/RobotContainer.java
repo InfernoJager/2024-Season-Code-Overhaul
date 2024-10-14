@@ -74,7 +74,7 @@ public class RobotContainer {
       .onTrue(new TeleopMoveCommand(drive, driverController));
 
     // Operator Triggers
-    buttonBoard.button(1).onTrue(new PickupCommand(pivot, belt, intake, shoot));
+    buttonBoard.button(1).onTrue(new PickupCommand(pivot, belt, intake, shoot, driverController));
     buttonBoard.button(4).onTrue(new SpeakerShootCommand(pivot, belt, shoot));
     buttonBoard.button(6).onTrue(new CancelCommand(intake, pivot, climb, shoot, belt));
     buttonBoard.button(8).onTrue(new AmpShootCommand(pivot, belt, shoot));

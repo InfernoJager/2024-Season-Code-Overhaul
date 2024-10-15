@@ -4,13 +4,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.subsystems.ClimbSubsystem;
 
-public class ArmExtendCommand extends Command {
+public class ArmMoveCommand extends Command {
     
     final ClimbSubsystem climb;
     final double target;
     final double speed;
 
-    public ArmExtendCommand(ClimbSubsystem m_climb, double targetLength, double climbSpeed) {
+    public ArmMoveCommand(ClimbSubsystem m_climb, double targetLength, double climbSpeed) {
 
         climb = m_climb;
         target = targetLength;
@@ -28,12 +28,12 @@ public class ArmExtendCommand extends Command {
 
     @Override
     public void execute() {
-        climb.extendArm();
+        climb.moveArm();
     }
 
     @Override
     public boolean isFinished() {
-        return (climb.armLength() >= target - 2 && climb.armLength() <= target + 2);
+        return (!climb.isArmLongerThanTarget() && !climb.isArmShorterThanTarget());
     }
 
 }

@@ -52,8 +52,12 @@ public class ClimbSubsystem extends SubsystemBase {
 
         if(this.isArmShorterThanTarget()) {
             this.extendArm();
-        } else {
+        } else if (this.isArmLongerThanTarget()) {
             this.retractArm();
+        }
+
+        if (remainingDistance() <= 8) {
+            climbSpeed = climbSpeed/2;
         }
 
         return false;
@@ -85,13 +89,13 @@ public class ClimbSubsystem extends SubsystemBase {
     
     public void extendArm() {
 
-        this.setClimbSpeed(Math.abs(climbSpeed));
+        motor.Spin(-Math.abs(climbSpeed));
 
     }
 
     public void retractArm() {
 
-        this.setClimbSpeed(-Math.abs(climbSpeed));
+        motor.Spin(Math.abs(climbSpeed));
 
     }
 
@@ -106,18 +110,6 @@ public class ClimbSubsystem extends SubsystemBase {
 
         servoRight.set(0.25);
         servoLeft.set(0.25);
-
-    }
-
-    public boolean isServoIn() {
-
-        return (servoLeft.get() == 1 && servoRight.get() == 1);
-
-    }
-
-    public boolean isServoOut() {
-
-        return (servoLeft.get() == 0.25 && servoRight.get() == 0.25);
 
     }
 

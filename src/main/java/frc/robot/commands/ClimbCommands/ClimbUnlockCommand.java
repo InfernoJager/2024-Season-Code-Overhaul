@@ -19,9 +19,4 @@ public class ClimbUnlockCommand extends Command {
         climb.servoOut();
     }
 
-    @Override
-    public boolean isFinished() {
-        return climb.isServoOut();
-    }
-
 }

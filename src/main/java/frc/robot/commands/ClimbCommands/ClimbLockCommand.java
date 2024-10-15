@@ -19,9 +19,4 @@ public class ClimbLockCommand extends Command {
         climb.servoIn();
     }
 
-    @Override
-    public boolean isFinished() {
-        return climb.isServoIn();
-    }
-
 }

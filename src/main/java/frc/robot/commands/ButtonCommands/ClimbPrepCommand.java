@@ -1,9 +1,10 @@
 package frc.robot.commands.ButtonCommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-
-import frc.robot.commands.ClimbCommands.ArmExtendCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.commands.ClimbCommands.ArmMoveCommand;
 import frc.robot.commands.ClimbCommands.ClimbLockCommand;
+import frc.robot.commands.ClimbCommands.ClimbStopCommand;
 import frc.robot.commands.PivotCommands.PivotStopCommand;
 import frc.robot.commands.PivotCommands.PivotToTargetPIDCommand;
 
@@ -22,7 +23,8 @@ public class ClimbPrepCommand extends SequentialCommandGroup {
 
         addCommands(
             new PivotToTargetPIDCommand(pivot, pivotAngle, pivotSpeed, 0.5),
-            new ClimbLockCommand(climb).alongWith(new PivotStopCommand(pivot), new ArmExtendCommand(climb, climbLength, climbSpeed))
+            new ClimbLockCommand(climb).alongWith(new PivotStopCommand(pivot), new ArmMoveCommand(climb, climbLength, climbSpeed)).raceWith(new WaitCommand(10)),
+            new ClimbStopCommand(climb)
         );
 
         addRequirements(climb, pivot);

@@ -1,7 +1,7 @@
 package frc.robot.commands.ButtonCommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
@@ -11,8 +11,7 @@ import frc.robot.subsystems.BeltSubsystem;
 import frc.robot.commands.IntakeCommands.IntakeStopCommand;
 import frc.robot.commands.PivotCommands.PivotStopCommand;
 import frc.robot.commands.PivotCommands.PivotToTargetPIDCommand;
-import frc.robot.commands.ClimbCommands.ArmExtendCommand;
-import frc.robot.commands.ClimbCommands.ArmRetractCommand;
+import frc.robot.commands.ClimbCommands.ArmMoveCommand;
 import frc.robot.commands.ClimbCommands.ClimbStopCommand;
 import frc.robot.commands.ClimbCommands.ClimbUnlockCommand;
 import frc.robot.commands.ShootCommands.ShootStopCommand;
@@ -25,6 +24,7 @@ public class CancelCommand extends SequentialCommandGroup {
 
         // Pivot Safe Variables
         double safeAngle = 33;
+        double climbSafeAngle = 68;
         double pivotSpeed = 0.3;
 
         // Climb Safe Variables
@@ -32,7 +32,7 @@ public class CancelCommand extends SequentialCommandGroup {
         double executeCancelLength = 104;
         double climbSpeed = 1;
 
-        if (climb.armLength() <=6) {
+        if (climb.armLength() <= 6) {
             addCommands(
                 new IntakeStopCommand(intake).alongWith(
                     new PivotStopCommand(pivot),
@@ -44,13 +44,13 @@ public class CancelCommand extends SequentialCommandGroup {
         } else if (climb.armLength() >= 102 && climb.armLength() <= 106) {
             addCommands(
                 new ClimbStopCommand(climb).alongWith(new PivotStopCommand(pivot)),
-                new ArmRetractCommand(climb, prepCancelLength, climbSpeed).alongWith(new ClimbUnlockCommand(climb)),
+                new ArmMoveCommand(climb, prepCancelLength, climbSpeed).alongWith(new ClimbUnlockCommand(climb), new PivotToTargetPIDCommand(pivot, climbSafeAngle, pivotSpeed, 0.5)).raceWith(new WaitCommand(5)),
                 new PivotToTargetPIDCommand(pivot, safeAngle, pivotSpeed, 1)
             );
         } else if (climb.armLength() >= 22 && climb.armLength() <= 26) {
             addCommands(
                 new ClimbStopCommand(climb).alongWith(new PivotStopCommand(pivot)),
-                new ArmExtendCommand(climb, executeCancelLength, climbSpeed)
+                new ArmMoveCommand(climb, executeCancelLength, climbSpeed)
             );
         }
 

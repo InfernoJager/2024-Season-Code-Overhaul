@@ -1,61 +1,90 @@
 package frc.robot.commands.ButtonCommands;
 
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.Command;
+
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ShootSubsystem;
 import frc.robot.subsystems.BeltSubsystem;
 
-import frc.robot.commands.IntakeCommands.IntakeStopCommand;
-import frc.robot.commands.PivotCommands.PivotStopCommand;
-import frc.robot.commands.PivotCommands.PivotToTargetPIDCommand;
-import frc.robot.commands.ClimbCommands.ArmMoveCommand;
-import frc.robot.commands.ClimbCommands.ClimbStopCommand;
-import frc.robot.commands.ClimbCommands.ClimbUnlockCommand;
-import frc.robot.commands.ShootCommands.ShootStopCommand;
-import frc.robot.commands.BeltCommands.BeltStopCommand;
+import frc.robot.commands.CompositeCommands.DefaultCancelCommand;
+import frc.robot.commands.CompositeCommands.ClimbPrepCancelCommand;
+import frc.robot.commands.CompositeCommands.ArmCancelCommand;
+import frc.robot.commands.CompositeCommands.ClimbCancelCommand;
 
+public class CancelCommand extends Command {
 
-public class CancelCommand extends SequentialCommandGroup {
+    public final DefaultCancelCommand defaultCancel;
+    public final ClimbPrepCancelCommand climbPrepCancel;
+    public final ClimbCancelCommand climbCancel;
+    public final ArmCancelCommand armCancel;
 
-    public CancelCommand(IntakeSubsystem intake, PivotSubsystem pivot, ClimbSubsystem climb, ShootSubsystem shoot, BeltSubsystem belt) {
+    public final ClimbSubsystem climb;
+    
+    public Command cancelCommand;
 
-        // Pivot Safe Variables
-        double safeAngle = 33;
-        double climbSafeAngle = 68;
-        double pivotSpeed = 0.3;
+    public CancelCommand(IntakeSubsystem intake, PivotSubsystem pivot, ClimbSubsystem m_climb, ShootSubsystem shoot, BeltSubsystem belt) {
 
-        // Climb Safe Variables
-        double prepCancelLength = 4;
-        double executeCancelLength = 104;
-        double climbSpeed = 1;
+        climb = m_climb;
 
-        if (climb.armLength() <= 6) {
-            addCommands(
-                new IntakeStopCommand(intake).alongWith(
-                    new PivotStopCommand(pivot),
-                    new ShootStopCommand(shoot),
-                    new BeltStopCommand(belt),
-                    new ClimbStopCommand(climb)),
-                new PivotToTargetPIDCommand(pivot, safeAngle, pivotSpeed, 1)
-            );
-        } else if (climb.armLength() >= 102 && climb.armLength() <= 106) {
-            addCommands(
-                new ClimbStopCommand(climb).alongWith(new PivotStopCommand(pivot)),
-                new ArmMoveCommand(climb, prepCancelLength, climbSpeed).alongWith(new ClimbUnlockCommand(climb), new PivotToTargetPIDCommand(pivot, climbSafeAngle, pivotSpeed, 0.5)).raceWith(new WaitCommand(5)),
-                new PivotToTargetPIDCommand(pivot, safeAngle, pivotSpeed, 1)
-            );
-        } else if (climb.armLength() >= 22 && climb.armLength() <= 26) {
-            addCommands(
-                new ClimbStopCommand(climb).alongWith(new PivotStopCommand(pivot)),
-                new ArmMoveCommand(climb, executeCancelLength, climbSpeed)
-            );
-        }
+        defaultCancel = new DefaultCancelCommand(pivot, intake, climb, belt, shoot);
+        armCancel = new ArmCancelCommand(pivot, intake, climb, belt, shoot);
+        climbPrepCancel = new ClimbPrepCancelCommand(pivot, climb);
+        climbCancel = new ClimbCancelCommand(pivot, climb);
 
         addRequirements(intake, pivot, climb, shoot, belt);
 
     }
+
+    @Override
+    public void initialize() {
+
+        /*  CANCEL CHAIN
+         *  Servo Locked (CC -> CPC) -> AC/DC
+         *  CC = Arm extension and makes sure pivot is not moving
+         *  CPC = Arm retraction to minimum value, unlock servos, pivot to safe angle
+         *  AC = kill all systems, retract arm fully, pivot to safe angle
+         *  DC = kill all systems, pivot to safe angle
+         */
+
+        if (climb.isLocked()) {
+            if (climb.armLength() > 100) {
+                cancelCommand = climbPrepCancel;
+            } else {
+                cancelCommand = climbCancel;
+            }
+        } else if (climb.armLength() > 6) {
+            cancelCommand = armCancel;
+        } else {
+            cancelCommand = defaultCancel;
+        }
+
+        cancelCommand.initialize();
+    }
     
+    @Override
+    public final void execute() {
+        cancelCommand.execute();
+    }
+
+    @Override
+    public final void end(boolean interrupted) {
+        cancelCommand.end(interrupted);
+    }
+
+    @Override
+    public final boolean isFinished() {
+        return cancelCommand.isFinished();
+    }
+
+    @Override
+    public boolean runsWhenDisabled() {
+        return cancelCommand.runsWhenDisabled();
+    }
+
+    @Override
+    public InterruptionBehavior getInterruptionBehavior() {
+        return cancelCommand.getInterruptionBehavior();
+    }
 }

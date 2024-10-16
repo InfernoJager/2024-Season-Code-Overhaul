@@ -42,12 +42,10 @@ public class ClimbSubsystem extends SubsystemBase {
     
     }
 
-    public boolean moveArm() {
+    public void moveArm() {
 
         if (!this.isArmShorterThanTarget() && !this.isArmLongerThanTarget()) {
             this.stop();
-
-            return true;
         }
 
         if(this.isArmShorterThanTarget()) {
@@ -55,12 +53,6 @@ public class ClimbSubsystem extends SubsystemBase {
         } else if (this.isArmLongerThanTarget()) {
             this.retractArm();
         }
-
-        if (remainingDistance() <= 8) {
-            climbSpeed = climbSpeed/2;
-        }
-
-        return false;
     }
 
     public double armLength() {
@@ -83,20 +75,28 @@ public class ClimbSubsystem extends SubsystemBase {
 
     public boolean isArmLongerThanTarget() {
 
-        return this.remainingDistance() <= 2;
+        return this.remainingDistance() <= -2;
 
     }
     
     public void extendArm() {
 
-        motor.Spin(-Math.abs(climbSpeed));
+        motor.Spin(-Math.abs(this.effectiveSpeed()));
 
     }
 
     public void retractArm() {
 
-        motor.Spin(Math.abs(climbSpeed));
+        motor.Spin(Math.abs(this.effectiveSpeed()));
 
+    }
+
+    public double effectiveSpeed() {
+        if (Math.abs(this.remainingDistance()) <= 8) {
+            return climbSpeed / 2;
+        }
+
+        return climbSpeed;
     }
 
     public void servoIn() {
@@ -110,6 +110,12 @@ public class ClimbSubsystem extends SubsystemBase {
 
         servoRight.set(0.25);
         servoLeft.set(0.25);
+
+    }
+
+    public boolean isLocked() {
+        
+        return servoRight.get() == 1 && servoLeft.get() == 1;
 
     }
 

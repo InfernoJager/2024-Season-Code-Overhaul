@@ -92,8 +92,8 @@ public class ClimbSubsystem extends SubsystemBase {
     }
 
     public double effectiveSpeed() {
-        if (Math.abs(this.remainingDistance()) <= 8) {
-            return climbSpeed / 2;
+        if (Math.abs(this.remainingDistance()) <= 4) {
+            return climbSpeed / 8;
         }
 
         return climbSpeed;
@@ -121,7 +121,7 @@ public class ClimbSubsystem extends SubsystemBase {
 
     public void stop() {
 
-        this.setClimbSpeed(0);
+        motor.Spin(0);
 
     }
 

@@ -15,7 +15,7 @@ public class ClimbPrepCommand extends SequentialCommandGroup {
     
     public ClimbPrepCommand(ClimbSubsystem climb, PivotSubsystem pivot) {
 
-        double climbLength = 104;
+        double climbLength = 104;  //13 inches
         double climbSpeed = 1;
 
         double pivotAngle = 68;

@@ -12,9 +12,9 @@ import frc.robot.subsystems.PivotSubsystem;
 import frc.robot.subsystems.ShootSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class TestAutoRoutine extends SequentialCommandGroup {
-    
-    public TestAutoRoutine(DriveSubsystem drive, ShootSubsystem shoot, BeltSubsystem belt, PivotSubsystem pivot, IntakeSubsystem intake) {
+public class FourNoteAutoRoutine extends SequentialCommandGroup {
+
+    public FourNoteAutoRoutine(DriveSubsystem drive, ShootSubsystem shoot, BeltSubsystem belt, PivotSubsystem pivot, IntakeSubsystem intake) {
 
         addCommands(
             new AutoSpeakerShootCommand(pivot, belt, shoot),
@@ -39,5 +39,5 @@ public class TestAutoRoutine extends SequentialCommandGroup {
         );
 
     }
-
+    
 }

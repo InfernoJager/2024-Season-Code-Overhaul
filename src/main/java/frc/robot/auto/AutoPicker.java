@@ -1,7 +1,8 @@
 package frc.robot.auto;
 
 // import frc.robot.auto.Routines.AmpSideAuto;
-// import frc.robot.auto.Routines.FourNoteAuto;
+import frc.robot.auto.Routines.OneNoteAutoRoutine;
+import frc.robot.auto.Routines.FourNoteAutoRoutine;
 // import frc.robot.auto.Routines.LeaveAuto;
 // import frc.robot.auto.Routines.SourceSideAuto;
 import frc.robot.auto.Routines.TestAutoRoutine;
@@ -30,6 +31,7 @@ public class AutoPicker extends Command{
     private final SendableChooser<Command> m_chooser = new SendableChooser<>();
 
     private Command m_LeaveAuto;
+    private Command m_OneNoteAuto;
     private Command m_AmpSideAuto;
     private Command m_SourceSideAuto;
     private Command m_TwoNoteAuto;
@@ -51,15 +53,16 @@ public class AutoPicker extends Command{
 
         m_chooser.setDefaultOption("Choose Auto", null);
         m_chooser.addOption("Center Autos:", null);
+        m_chooser.addOption("  - 4 Notes", m_FourNoteAuto);
         m_chooser.addOption("Side Autos:", null);
         m_chooser.addOption("Alternate Autos:", null);
+        m_chooser.addOption("  - 1 Note Auto", m_OneNoteAuto);
         m_chooser.addOption("  - Test Auto (PROGRAMMING ONLY)", m_TestAuto);
         m_chooser.addOption("WIP Autos (DO NOT USE)", null);
         m_chooser.addOption("  - Leave", m_LeaveAuto);
         m_chooser.addOption("  - 2 Notes To Center", m_TwoNoteAuto);
         m_chooser.addOption("  - 3 Notes To Amp", m_ThreeAmpNoteAuto);
         m_chooser.addOption("  - 3 Notes To Source", m_ThreeSourceNoteAuto);
-        m_chooser.addOption("  - 4 Notes", m_FourNoteAuto);
         m_chooser.addOption("  - Amp Side", m_AmpSideAuto);
         m_chooser.addOption("  - Source Side", m_SourceSideAuto);
         m_chooser.addOption("  - 2 Notes Amp Side", null);
@@ -77,7 +80,8 @@ public class AutoPicker extends Command{
         // final TwoNoteAuto twoNoteAuto = new TwoNoteAuto(robot, drive);
         // final ThreeAmpNoteAuto threeAmpNoteAuto = new ThreeAmpNoteAuto(drive, robot);
         // final ThreeSourceNoteAuto threeSourceNoteAuto = new ThreeSourceNoteAuto(drive, robot);
-        // final FourNoteAuto fourNoteAuto = new FourNoteAuto(drive, robot);
+        final FourNoteAutoRoutine fourNoteAuto = new FourNoteAutoRoutine(drive, shoot, belt, pivot, intake);
+        final OneNoteAutoRoutine oneNoteAuto = new OneNoteAutoRoutine(shoot, belt, pivot);
         final TestAutoRoutine testAuto = new TestAutoRoutine(drive, shoot, belt, pivot, intake);
 
         // m_LeaveAuto = leaveAuto;
@@ -86,7 +90,8 @@ public class AutoPicker extends Command{
         // m_TwoNoteAuto = twoNoteAuto;
         // m_ThreeAmpNoteAuto = threeAmpNoteAuto;
         // m_ThreeSourceNoteAuto = threeSourceNoteAuto;
-        // m_FourNoteAuto = fourNoteAuto;
+        m_FourNoteAuto = fourNoteAuto;
+        m_OneNoteAuto = oneNoteAuto;
         m_TestAuto = testAuto;
         
     }

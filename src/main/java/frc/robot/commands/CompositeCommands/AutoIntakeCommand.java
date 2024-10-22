@@ -10,7 +10,6 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.commands.IntakeCommands.IntakeCommand;
 import frc.robot.commands.BeltCommands.BeltPushCommand;
 import frc.robot.commands.BeltCommands.NoteDetectionCommand;
-import frc.robot.commands.CompositeCommands.NotePrepCommand;
 import frc.robot.commands.PivotCommands.PivotToTargetPIDCommand;
 
 public class AutoIntakeCommand extends SequentialCommandGroup {
@@ -24,7 +23,7 @@ public class AutoIntakeCommand extends SequentialCommandGroup {
         double beltSpeed = intakeSpeed/1.592;
 
         addCommands(
-            new PivotToTargetPIDCommand(pivot, target, pivotSpeed, 1).raceWith(new WaitCommand(0.4)),
+            new PivotToTargetPIDCommand(pivot, target, pivotSpeed, 1).raceWith(new WaitCommand(0.3)),
             new IntakeCommand(intake, intakeSpeed).alongWith(new BeltPushCommand(belt, beltSpeed)).raceWith(new NoteDetectionCommand(belt), new WaitCommand(2)),
             new NotePrepCommand(belt, shoot).alongWith(new PivotToTargetPIDCommand(pivot, safeAngle, pivotSpeed, 1)).raceWith(new WaitCommand(0.1))
         );

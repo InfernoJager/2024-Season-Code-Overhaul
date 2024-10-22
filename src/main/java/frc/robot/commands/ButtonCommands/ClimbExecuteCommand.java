@@ -9,7 +9,7 @@ public class ClimbExecuteCommand extends SequentialCommandGroup {
     
     public ClimbExecuteCommand(ClimbSubsystem climb) {
 
-        double climbLength = 24; // 3 inches
+        double climbLength = 16; // 2 inches
         double climbSpeed = 1;
 
         addCommands(
